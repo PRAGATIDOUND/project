@@ -8,6 +8,7 @@ function App() {
     setName(xyx)
     console.log(name);
   }
+
   return (
    <Router>
     <Routes>
