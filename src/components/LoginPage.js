@@ -4,34 +4,22 @@ import Login from "./images/LOGIN.png";
 import APIService from '../APIService';
 import { Dialog,DialogTitle,DialogContent,DialogActions,Button,TextField } from '@material-ui/core';
 import { useNavigate } from 'react-router-dom';
-function LoginPage() {
+function LoginPage(props) {
   const[username,setUsername]=useState('')
   const[password,setPassword]=useState("");
   const[token,setToken]=useState("");
+
   let navigate =useNavigate()
   useEffect(()=>{
     if(token){
-      navigate('/search');
+      props.onClick(username)
+      navigate('/search'); 
     }
   },[token])
-  
+ 
  
   const [open, setOpen] = React.useState(false);
-  const[newUserPassword,setNewUserPassword]=useState("");
-  const[newUserName,setNewUserName]=useState("");
-
-  // const handleUsername= (e) =>{ 
-  //   setUsername(e.target.value); 
-  //  }
-  //  const handlePassword= (e) =>{ 
-  //    setPassword(e.target.value); 
-  //   }
-  const handlePassword= (e) =>{ 
-    setNewUserPassword(e.target.value);
-   }
-   const handleName= (e) =>{ 
-    setNewUserName(e.target.value);
-   }
+  
   
   const handleClickOpen = () => {
     setOpen(true);
@@ -45,9 +33,9 @@ function LoginPage() {
   };
   const loginBtn=()=>{
     APIService.LoginUser({username,password})
-    .then(resp=>setToken(resp.token))
-    .catch(error=>console.log(error))
-   
+    .then(resp=>{if(resp.token===undefined){alert("You dont have an account please register yoursef first")}else{setToken(resp.token)}})
+    .catch(error=>console.log(error));
+
   }
   return (
     <>
@@ -65,7 +53,7 @@ function LoginPage() {
             <input type="password" name='password'autocomplete="off" id='password'placeholder="Enter Password" required value={password} onChange={e=>setPassword(e.target.value)} />
             <p>Forgot Password?</p>
             <button className='btn' onClick={loginBtn}>Sign in</button>
-            <div id='signup'><p id='psignup'>don't have an account?</p><div  onClick={handleClickOpen}>Sign up</div></div>
+            <div id='signup'><p id='psignup'>don't have an account?</p><div id='signupbtn' onClick={handleClickOpen}>Sign up</div></div>
             </div>
         </div>
       </div>
@@ -73,32 +61,9 @@ function LoginPage() {
       <Dialog open={open} onClose={handleClose} >
         <DialogTitle>Register Yourself</DialogTitle>
         <DialogContent margin="auto">
-        {/* <TextField autocomplete="off"
-            autoFocus 
-            margin="dense" id="name" label="Name" type="text"
-            fullWidth
-            variant="standard"
-            required value={newUserName} onChange={handleName}
-            className="textfield"
-            InputLabelProps={{
-              style: { color: '#5714AC' }, 
-            }} 
-          />
-       
-          <TextField autocomplete="off"
-           
-            margin="dense" id="name" label="Email Address" type="text"
-            fullWidth
-            className="textfield"
-            variant="standard"
-            required value={newUserPassword} onChange={handlePassword} 
-            InputLabelProps={{
-              style: { color: '#5714AC' }, 
-           }}
-          />
-         */}
-                      <input type="text" name='text'autocomplete="off" id='loginusername'placeholder="Enter Username" required value={username} onChange={e=>setUsername(e.target.value)} />
-                      <input type="password" name='password'autocomplete="off" id='password'placeholder="Enter Password" required value={password} onChange={e=>setPassword(e.target.value)} />
+        
+         <input type="text" name='text'autocomplete="off" id='registerip'placeholder="Enter Username" required value={username} onChange={e=>setUsername(e.target.value)} />
+         <input type="password" name='password'autocomplete="off" id='registerip'placeholder="Enter Password" required value={password} onChange={e=>setPassword(e.target.value)} />
 
         </DialogContent>
         <DialogActions>
