@@ -13,6 +13,10 @@ ul{
     
   
 }
+img{
+    height:200px;
+    width: 200px;
+}
 #active{
     color:#4F00C1
 }
