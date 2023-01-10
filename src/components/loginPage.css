@@ -129,3 +129,18 @@ a{
 .MuiDialogContent-root{
     display: block;
 }
+#registerip{
+    width: 300px;
+
+}
+.MuiDialogContent-root{
+    width:325px;
+}
+#signupbtn{
+    font-weight: 400;
+    font-size:large;
+    line-height: 19px;
+    align-items: baseline;
+    color: #5714AC;
+    padding: 4px;
+}
