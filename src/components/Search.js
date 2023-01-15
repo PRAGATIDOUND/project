@@ -6,11 +6,6 @@ const openai = new OpenAIApi(Configuration);
 function Search(props) {
   const [prompt, setPrompt] = useState("");
   const [array,setArray] = useState([]);
-  const [result, setResult] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [placeholder, setPlaceholder] = useState(
-    "Search Bears with Paint Brushes the Starry Night, painted by Vincent Van Gogh.."
-  );
   const configuration = new Configuration({
     apiKey:process.env.REACT_APP_API_KEY,
   });
