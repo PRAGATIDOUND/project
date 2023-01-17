@@ -1,16 +1,15 @@
-import React,{useState} from 'react'
+import React,{useEffect, useState} from 'react'
 import "./Search.css";
+import APIService from '../APIService';
 import {Configuration,OpenAIApi} from "openai";
 
 const openai = new OpenAIApi(Configuration);
 function Search(props) {
   const [prompt, setPrompt] = useState("");
+  const [flag,setFlag] = useState(false);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("pragsDescription");
   const [array,setArray] = useState([]);
-  const [result, setResult] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [placeholder, setPlaceholder] = useState(
-    "Search Bears with Paint Brushes the Starry Night, painted by Vincent Van Gogh.."
-  );
   const configuration = new Configuration({
     apiKey:process.env.REACT_APP_API_KEY,
   });
@@ -21,7 +20,7 @@ function Search(props) {
 
     const res = await openai.createImage({
       prompt: prompt,
-      n: 3,
+      n: 2,
       size: "512x512",
     });
     const array=res.data.data;
@@ -29,6 +28,22 @@ function Search(props) {
    const string1= array.map((x)=>{setArray(current => [...current,x.url]);console.log(x)});
    
   };
+
+  useEffect(()=>{
+  
+      handleSave();
+
+  },[title])
+
+const handleSave = () => {
+    // APIService.RegisterUser({newUserName,newUserPassword})
+      setFlag(true);
+      if(flag){
+        APIService.SaveImage({title,description})
+     .then(resp =>console.log(resp))
+     .catch(error=>console.log(error))}
+    
+   };
 
 
 
@@ -51,7 +66,7 @@ function Search(props) {
       <button className='search-btn' onClick={generateImage}>CREATE</button>
       <p>Images created by AI will appear here</p>
       {array.map( (x) => (
-              <img className="result-image" src={x} alt="result" />
+              <img className="result-image" src={x} alt="result" onClick={()=>{setTitle(x)}}/>
             ) 
             )}
      </div>
