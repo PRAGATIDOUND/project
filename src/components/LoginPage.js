@@ -5,14 +5,15 @@ import APIService from '../APIService';
 import { Dialog,DialogTitle,DialogContent,DialogActions,Button,TextField } from '@material-ui/core';
 import { useNavigate } from 'react-router-dom';
 function LoginPage(props) {
-  const[username,setUsername]=useState('')
+  const[username,setUsername]=useState('');
+  const[user,setUser]=useState('')
   const[password,setPassword]=useState("");
   const[token,setToken]=useState("");
 
   let navigate =useNavigate()
   useEffect(()=>{
     if(token){
-      props.onClick(username)
+      props.onClick(username,token,user)
       navigate('/search'); 
     }
   },[token])
@@ -33,7 +34,7 @@ function LoginPage(props) {
   };
   const loginBtn=()=>{
     APIService.LoginUser({username,password})
-    .then(resp=>{if(resp.token===undefined){alert("You dont have an account please register yoursef first")}else{setToken(resp.token)}})
+    .then(resp=>{if(resp.token===undefined){alert("You dont have an account please register yoursef first")}else{setUser(resp.user_id);setToken(resp.token)}})
     .catch(error=>console.log(error));
 
   }
