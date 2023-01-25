@@ -1,6 +1,8 @@
 import React,{useState,useEffect} from 'react'
-
+import { Navigate, useNavigate } from 'react-router-dom';
+//import "./Search.css"
 function Workspace(props) {
+    let navigate =useNavigate()
     const [items,setItems]=useState([]);
     const [token,setToken]=useState(props.token)
     useEffect(()=>{
@@ -18,11 +20,22 @@ function Workspace(props) {
 
     },[])
   return (
-    <div>
-      <h1>hello</h1>
+    <div className='search-page'>
+    <div className='navbar'>
+     <ul className='navbar-list'>
+      <li onClick={()=>{navigate('/search')}} >Home</li>
+      <li id='active' >My Workspace</li>
+      <li>{props.name}</li>
+  
+     </ul>
+  
+     </div>
+     <hr/>
+      <div className='saved-images-container'>
       {items.map(item=>{
         return <img className="result-image" src={item.url} alt="result" />
       })}
+      </div>
     </div>
   )
 }
