@@ -6,6 +6,7 @@ import { Navigate, useNavigate } from 'react-router-dom';
 import  {storage} from "./firbaseIndex";
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { Dialog,DialogTitle,DialogContent,DialogActions,Button,TextField } from '@material-ui/core';
+import { saveAs } from 'file-saver'
 
 import Spinner from './Spinner';
 const openai = new OpenAIApi(Configuration);
@@ -131,6 +132,12 @@ const handleSave = async () => {
            }, 4000);
  }
 
+ const downloadImage = () => {
+  const {v4:uuidv4} = require('uuid'); 
+  const fileName = uuidv4();
+  saveAs(`data:image/png;base64,${example}`, `${fileName}.png`) // Put your image url here.
+}
+
 
     return (
 
@@ -176,6 +183,7 @@ const handleSave = async () => {
               <button className='close' onClick={()=>{setZoomImage(false)}}>X</button>
               <img className='zoomImage' src={`data:image/png;base64,${example}`} alt=""/>
               <button className='save' onClick={()=>{handleVariable()}}>save</button>
+              <button className='download' onClick={()=>{downloadImage()}}>download</button>
               </DialogContent>
               </Dialog>
            
