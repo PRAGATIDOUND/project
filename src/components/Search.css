@@ -99,13 +99,28 @@ border-radius: 4px;
 .save{
     width: 80px;
     height: 35px;
-    border-radius:16px;
-    background: #5714AC;
+    border-radius:8px;
+    background: white;
     border: none;
     outline: none;
-    color: white; 
+    color: #5714AC; 
     font-size: 20px;
-    margin-left: 40%;
+    margin-left: 20%;
+    margin-right: 10px;
+}
+.download{
+    height: 35px;
+    border-radius:8px;
+    background: white;
+    border: none;
+    outline: none;
+    color: #5714AC; 
+    font-size: 20px;
+
+}
+.save:hover,.download:hover{
+    background-color:#5714AC;
+    color: white;
 }
 .close{
     border: none;

@@ -25,7 +25,7 @@ function App() {
      <Route exact path="/" element={<LoginPage onClick={callback} />}/>
      {/* <Route exact path="/" element={<Search/>}/> */}
      <Route exact path="/search" element={<Search name={name} token={token} user={user}/>}/>
-     <Route exact path="/workspace" element={<Workspace token={token} name={name} />}/>
+     <Route exact path="/workspace" element={<Workspace token={token} name={name} user={user} />}/>
     </Routes>
    </Router>
   );

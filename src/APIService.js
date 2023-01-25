@@ -29,4 +29,15 @@ export default class APIService {
             body:JSON.stringify(body)
         }).then(resp=>resp.json())
     }
+    static RemoveImage(body,token){
+        return fetch(`http://127.0.0.1:8000/api/images/${body}`,{
+            'method':'DELETE',
+            headers:{
+                'Content-Type':'application/json',
+                'Authorization':`Token ${token} `
+            },
+           
+        })
+    }
+
 }
