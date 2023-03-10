@@ -26,11 +26,6 @@ function Search(props) {
   let navigate =useNavigate()
   
  
-  const configuration = new Configuration({
-    apiKey:process.env.REACT_APP_API_KEY,
-  });
-  const openai = new OpenAIApi(configuration);
-
   const generateImage = async () => {
 
     setShow(true)
@@ -41,13 +36,7 @@ function Search(props) {
      setArray(resp);
     })
     .catch(error=>console.log(error))
-    // const res = await openai.createImage({
-    //   prompt: prompt,
-    //   n: 1,
-    //   size: "256x256",
-    //   response_format:"b64_json"
-    // });
-    // const array=res.data.data;
+   
    
     if(array!=[]){
       setShow(false);
@@ -90,16 +79,11 @@ const handleSave = async () => {
   ()=>{
     console.log("move forward")
     getDownloadURL(uploadTask.snapshot.ref).then(url=>{
-      // setUrl(x);
-      // console.log(x)
-  //    setFlag(true);
-  // if(flag){
-    
+
     console.log(url)
     if(url!=="")
       handle(url);
-    //}
-    
+   
     
     })
   }
