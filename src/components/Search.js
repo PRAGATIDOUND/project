@@ -34,14 +34,21 @@ function Search(props) {
   const generateImage = async () => {
 
     setShow(true)
-
-    const res = await openai.createImage({
-      prompt: prompt,
-      n: 10,
-      size: "1024x1024",
-      response_format:"b64_json"
-    });
-    const array=res.data.data;
+    const number=1
+    let size="small"
+    await APIService.CallImage({prompt,number,size})
+    .then(resp =>{ 
+     setArray(resp);
+    })
+    .catch(error=>console.log(error))
+    // const res = await openai.createImage({
+    //   prompt: prompt,
+    //   n: 1,
+    //   size: "256x256",
+    //   response_format:"b64_json"
+    // });
+    // const array=res.data.data;
+   
     if(array!=[]){
       setShow(false);
     }
@@ -167,12 +174,11 @@ const handleSave = async () => {
       <div className='main-area'>
       {array.map( (x) => (
                
-              <img className="result-image" src={`data:image/png;base64,${x}`} alt="result" onClick={
+              <img className="result-image" src={`data:image/png;base64,${x.b64_json}`} alt="result" onClick={
                 ()=>{
-                  setExample(x);
+                  setExample(x.b64_json);
                   handleZoom();
-                }
-                
+                }               
               }/>
 
             ) 

@@ -39,5 +39,15 @@ export default class APIService {
            
         })
     }
+    static async CallImage(body){
+        const resp = await fetch('http://127.0.0.1:8000/api/create/', {
+            'method': 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(body)
+        })
+        return await resp.json()
+    }
 
 }
