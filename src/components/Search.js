@@ -29,7 +29,7 @@ function Search(props) {
   const generateImage = async () => {
 
     setShow(true)
-    const number=1
+    const number=10
     let size="small"
     await APIService.CallImage({prompt,number,size})
     .then(resp =>{ 

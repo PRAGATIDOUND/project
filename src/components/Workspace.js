@@ -9,6 +9,7 @@ function Workspace(props) {
     const [items,setItems]=useState([]);
     const [token,setToken]=useState(props.token)
     const [url,setUrl]=useState("");
+    const[itemID,setItemID]=useState();
     const [zoomImage,setZoomImage]=useState(false);
     const [articleId,setArticleId]=useState("");
     const user=props.user;
@@ -57,17 +58,17 @@ function Workspace(props) {
      <hr/>
       <div className='saved-images-container'>
       {items.map(item=>{
-        return <img className="result-image" src={item.url}  alt="result" />
+        return <img className="result-image" src={item.url}  alt="result" onClick={()=>{ setUrl(item.url);setZoomImage(true);setItemID(item.id)}} />
       })}
 
-            {/* <Dialog open={zoomImage}  >
+            <Dialog open={zoomImage}  >
              <DialogContent margin="auto">
               <button className='close' onClick={()=>{setZoomImage(false)}}>X</button>
-              <img className='zoomImage' src={`${example}`} alt=""/>
-              <button className='save' onClick={()=>{handleDelete(item)}}>save</button>
+              <img className='zoomImage' src={`${url}`} alt=""/>
+              <button className='remove' onClick={()=>{handleDelete(itemID);setZoomImage(false)}}>Remove</button>
              
               </DialogContent>
-              </Dialog> */}
+              </Dialog>
       </div>
     </div>
   )
